@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Age Calculator</h1>
+      <label for="birthdate">Enter Your Birthdate:</label>
+      <input type="date" id="birthdate" />
+      <button onclick="calculateAge()">Calculate Age</button>
+      <p id="result"></p>
+    </div>
+
+    <script>
+      function calculateAge() {
+        const birthdate = document.getElementById("birthdate").value;
+        const resultElement = document.getElementById("result");
+
+        if (birthdate) {
+          const today = new Date();
+          const birthDate = new Date(birthdate);
+
+          let ageYears = today.getFullYear() - birthDate.getFullYear();
+          let ageMonths = today.getMonth() - birthDate.getMonth();
+          let ageDays = today.getDate() - birthDate.getDate();
+
+          if (ageDays < 0) {
+            ageMonths--;
+            ageDays += new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              0
+            ).getDate();
+          }
+
+          if (ageMonths < 0) {
+            ageYears--;
+            ageMonths += 12;
+          }
+
+          resultElement.innerText = `Your age is ${ageYears} years, ${ageMonths} months, and ${ageDays} days.`;
+          resultElement.style.color = "green"; // Set the text color to green
+        } else {
+          resultElement.innerText = "Please enter your birthdate"; // Clear the result if birthdate is not entered
+          resultElement.style.color = "red";
+        }
+      }
+    </script>
+  </body>
+</html>
